@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Best Recipe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/media/css/bootstrap.cs" rel="stylesheet">
+    <link href="/media/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/media/css/index.css" rel="stylesheet">
+    <!-- Fav and touch icons -->
+    <link rel="Glyphicons icon" href="/media/img/glyphicons-halflings-white.png">
+    <script type="text/javascript">
+    function getRecipeJson() {
+            var apiKey = "dvxwZEG018xEus4GjkQn8lvCRNd3EO2b";
+            var titleKeyword = document.getElementById("input2").value;
+            var url = "http://api.bigoven.com/recipes?pg=1&rpp=25&title_kw="
+                      + titleKeyword 
+                      + "&api_key="+apiKey;
+
+             $.ajax({
+                type: "GET",
+                dataType: 'json',
+                cache: false,
+                url: url,
+                success: function (data) {
+                    //alert('success');
+                    console.log(data);
+                    generateResults(data);
+                }
+            //$("#theForm").ajaxForm({url: 'server.php', type: 'post'})     
+            });
+    }
+    function generateResults(data) {
+        var total = data.ResultCount;
+        var cur =1;
+        $("#resultsInfo").html("<div id=\"resultsInfo\" class=\"hero-unit\">Showing "+"1-4"+" of "+total+" results</div>");
+        var text="";
+        for(row = 0; row<4&&cur<total; row++){
+            for(col = 0;col< 4&&cur<total;col++,cur++){
+                text += "<li class=\"span3\"><div class=\"thumbnail\"><img class=\"img-circle\" src=\"" + data.Results[cur].ImageURL+"\"><h2>" + data.Results[cur].Title+ "</h2><p>"+data.Results[cur].Cuisine+"</p><p><a class=\"btn\" href=\""+data.Results[cur].WebURL+"\">View details &raquo;</a></p></div></li>";
+            }
+            //text += "<hr class=\"featurette-divider\">";
+        }
+        $("#result1").html(text);
+
+        text = "<div class=\"hero-unit pagination pagination-centered\"><ul><li><a href=\"#\">&larr; Prev</a></li><li class=\"disabled\"><a href=\"#\">1</a></li><li><a href=\"#\">2</a></li><li><a href=\"#\">3</a></li><li><a href=\"#\">4</a></li><li><a href=\"#\">5</a></li><li><a href=\"#\">Next &rarr;</a></li></ul><\div>";
+        $("#pagination").html(text);
+    }
+    </script>
+  </head>
+
+  <body>
+
+    <!-- NAVBAR
+    ================================================== -->
+    <div class="navbar-wrapper">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container">
+
+        <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href=".">Best Recipe</a>
+            <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li class="nav-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+      </div> <!-- /.container -->
+    </div><!-- /.navbar-wrapper -->
+
+      
+      
+    <!-- Carousel
+    ================================================== -->
+
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+          
+        <div class="item active">
+          <img src="/media/img/slide-01.jpg" alt="">
+
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Search By Ingredients</h1>
+              <p class="lead">What's in your fridge?</br></p>
+          
+              <form class="form-search">
+                  
+                  <div class="row-fluid">
+                          <div class="span4">
+                        <input type="text" id= "addIngre" class="input-xlarge search-query" placeholder="Ingredients">
+                        <button type ="button" id="addBtn" class="btn btn-primary">Add</button>                                
+                        </div>
+                        <div class="span7"><div id="ingreList"></div></div>
+                  </div></br>
+                    
+                  <div class="row-fluid">
+                        <div class="span3">
+                            <p>Cook time: </p>
+                            <select data-style="btn-primary">
+                              <option value ="10">Under 10min</option>
+                              <option value ="20">Under 20min</option>
+                              <option value="30">Under 30min</option>
+                              <option value="60">Under 60min</option>
+                            </select>
+                        </div>
+                        <div class="span3">
+                            <p>Calories: </p>
+                            <select data-style="btn-primary">
+                              <option value ="500">Under 500</option>
+                              <option value ="">Under 900</option>
+                              <option value="30">Under 1200</option>
+                              <option value="60">Under 1500</option>
+                            </select>
+                        </div>
+                        <div class="span3">
+                            <p>Cuisine: </p>
+                            <select data-style="btn-primary">
+                              <option value ="10">American</option>
+                              <option value ="20">Asian</option>
+                              <option value="30">Italian</option>
+                              <option value="60">Mexican</option>
+                            </select>
+                         </div>
+                  </div>
+                  </br><button type="submit" class="btn btn-primary">Search</button>                
+              </form>
+            </div>
+          </div>
+        </div>
+    
+        <div class="item">
+          <img src="/media/img/slide-02.jpg" alt="">
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Search By Recipe Name</h1>
+              <p class="lead">1 Million recipes aggregated from multiple sources</br></br></p>
+              <form class="form-search">
+                    <input type="text" id="input2" class="input-xlarge search-query" placeholder="Recipe Name">
+                    <button type="button" onclick="getRecipeJson()" class="btn btn-primary">Search</button>
+              </form>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div><!-- /.carousel -->
+
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div id="resultsInfo"></div>
+    <div class="container marketing">
+
+      <!-- 4 columns of text below the carousel -->
+      <ul id="result1" class="thumbnails">
+        <!--<div  class="span3">
+          <img id="result1" class="img-circle" src="img/rounded-01.jpg" >
+          <h2>Quesadillas</h2>
+          <p>zest of one small lemon</br>a generous dollop of creme fraiche, sour cream or Greek </br>yogurt</br>fine grain sea salt</br>2 heaping tablespoons capers</br>small splash of olive oil</br>1 small egg</br>1 corn tortilla, room temperature</br>a bit of freshly shaved Parmesan</br>chopped fresh chives or marjoram</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>-->
+        
+      </ul>
+      
+      <div id="pagination"></div>
+      </div>
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-right" src="/media/img/list-01.jpg">
+        <h2 class="featurette-heading">First featurette headling. <span class="muted">It'll blow your mind.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-left" src="/media/img/list-02.jpg">
+        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="muted">See for yourself.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-right" src="/media/img/list-04.jpg">
+        <h2 class="featurette-heading">And lastly, this one. <span class="muted">Checkmate.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/media/js/jquery.js"></script>
+    <script src="/media/js/bootstrap.js"></script>
+    <script src="/media/js/typeahead.bundle.js"></script>
+    <script src="/media/js/typeahead.js"></script>
+    <script>
+      !function ($) {
+        $(function(){
+          // carousel demo
+          $('#myCarousel').carousel()
+        })
+      }(window.jQuery)
+    </script>
+    s
+  </body>
+</html>
+
