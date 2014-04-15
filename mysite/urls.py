@@ -9,6 +9,8 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'bestrecipe.views.index'),
                        # url(r'^blog/', include('blog.urls')),
-    (r'^media/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_PATH}),
+    (r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_PATH}),
+    url(r'^recipe$', 'bestrecipe.views.recipe'),
+    url(r'^results$', 'bestrecipe.views.results'),
     
 )

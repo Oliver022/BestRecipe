@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Best Recipe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/static/css/index.css" rel="stylesheet">
+    <!-- Fav and touch icons -->
+    <link rel="Glyphicons icon" href="/static/img/glyphicons-halflings-white.png">
+    <script type="text/javascript">
+    function getRecipeJson() {
+            var apiKey = "dvxwZEG018xEus4GjkQn8lvCRNd3EO2b";
+            var titleKeyword = document.getElementById("input2").value;
+            var url = "http://api.bigoven.com/recipes?pg=1&rpp=25&title_kw="
+                      + titleKeyword 
+                      + "&api_key="+apiKey;
+
+             $.ajax({
+                type: "GET",
+                dataType: 'json',
+                cache: false,
+                url: url,
+                success: function (data) {
+                    //alert('success');
+                    console.log(data);
+                    generateResults(data);
+                }
+            //$("#theForm").ajaxForm({url: 'server.php', type: 'post'})     
+            });
+    }
+    function generateResults(data) {
+        var total = data.ResultCount;
+        var cur =1;
+        $("#resultsInfo").html("<div id=\"resultsInfo\" class=\"hero-unit\">Showing "+"1-4"+" of "+total+" results</div>");
+        var text="";
+        for(row = 0; row<4&&cur<total; row++){
+            for(col = 0;col< 4&&cur<total;col++,cur++){
+                text += "<li class=\"span3\"><div class=\"thumbnail\"><img class=\"img-circle\" src=\"" + data.Results[cur].ImageURL+"\"><h2>" + data.Results[cur].Title+ "</h2><p>"+data.Results[cur].Cuisine+"</p><p><a class=\"btn\" href=\""+data.Results[cur].WebURL+"\">View details &raquo;</a></p></div></li>";
+            }
+            //text += "<hr class=\"featurette-divider\">";
+        }
+        $("#result1").html(text);
+
+        text = "<div class=\"hero-unit pagination pagination-centered\"><ul><li><a href=\"#\">&larr; Prev</a></li><li class=\"disabled\"><a href=\"#\">1</a></li><li><a href=\"#\">2</a></li><li><a href=\"#\">3</a></li><li><a href=\"#\">4</a></li><li><a href=\"#\">5</a></li><li><a href=\"#\">Next &rarr;</a></li></ul><\div>";
+        $("#pagination").html(text);
+    }
+    </script>
+  </head>
+
+  <body>
+
+    <!-- NAVBAR
+    ================================================== -->
+    <div class="navbar-wrapper">
+      <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+      <div class="container">
+
+        <div class="navbar navbar-inverse">
+          <div class="navbar-inner">
+            <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href=".">Best Recipe</a>
+            <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li class="nav-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div><!-- /.navbar-inner -->
+        </div><!-- /.navbar -->
+
+      </div> <!-- /.container -->
+    </div><!-- /.navbar-wrapper -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <img class="featurette-image pull-right" src="{{img}}">
+        <h2 class="featurette-heading">{{title}} <span class="muted">It'll blow your mind.</span></h2>
+        <p class="lead">{{summary}}</p>
+      </div>
+
+      <!-- FOOTER -->
+      <footer>
+        <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+      </footer>
+
+    </div><!-- /.container -->
+
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/js/jquery.js"></script>
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/typeahead.bundle.js"></script>
+    <script src="/static/js/typeahead.js"></script>
+    <script>
+      !function ($) {
+        $(function(){
+          // carousel demo
+          $('#myCarousel').carousel()
+        })
+      }(window.jQuery)
+    </script>
+    
+  </body>
+</html>
+
