@@ -4,6 +4,7 @@ r = redis.StrictRedis(host='localhost', port=6379, db=0)
 for i in Recipe.objects.all():
     ingres=i.structuredInstructions
     for ingName,trival in ingres.items():
+        
         r.lpush(ingName,i.id)
 
 for i in Recipe.objects.all():
@@ -14,8 +15,8 @@ for i in Recipe.objects.all():
             newSet.add(i.id)
             r.set(ingName,newSet)
         else:
-            newSet = r.get(ingName)
-            newSet.add(i.id)
+            pipe = r.pipeline()
+            pipe.get(ingName).sadd(ingName,i.id)
             r.delete(ingName)
             r.set(ingName,newSet)
 

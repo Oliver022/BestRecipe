@@ -14,7 +14,11 @@ for i in Recipe.objects.all():
             newSet.add(i.id)
             r.set(ingName,newSet)
         else:
-            r.sadd(r.get(ingName),i.id)
+            newSet = r.get(ingName)
+            newSet.add(i.id)
+            r.delete(ingName)
+            r.set(ingName,newSet)
+
 
 
 

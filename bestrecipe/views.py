@@ -8,7 +8,7 @@ def index(request):
 
 def results(request):
     r = redis.StrictRedis(host='localhost', port=6379, db=0)
-    ingredients= request.GET.getlist('ingredients[]', '')
+    ingredients= request.GET.getlist('ingredients', '')
 
     conj=set()
     results=[]
@@ -21,7 +21,7 @@ def results(request):
         result = Recipe.objects.get(id=index)
         results.append(result)
 
-    return render_to_response('results.html',{'results':results,'tests':ingredients})
+    return render_to_response('results.html',{'results':results})
 
 def recipe(request):
     return render_to_response('recipe.html',content)

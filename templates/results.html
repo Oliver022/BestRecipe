@@ -105,9 +105,6 @@
       <div id="resultsInfo" class="hero-unit">Showing 1-4 of total results</div>
       
       <ul class="thumbnails">
-          {% for test in tests %}
-          <li>{{test}}</li>
-          {% endfor %}
       {% for result in results %}
           <li class="span3"><div class="thumbnail"><img class="img-circle" src='{{ result.img }}'><h2>{{ result.title }}</h2><p>
           {% for line in result.ingredients %}
