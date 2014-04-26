@@ -11,9 +11,11 @@ $(document).ready(function() {
     
     $("#addBtn").click(function(){
         if($("#addIngre").val()!=""){
+            labelValue = $("#addIngre").val();
             $("#ingreList").append("     <button class=\"btn btn-small "+labelFormat[labelNum%5]+"\" id=\""+labelNum+"\" onclick=\"remove(this.id)\"><i class=\"icon-remove-circle icon-white\"></i>"+$("#addIngre").val()+"</button>");
             labelNum = labelNum+1;
             $("#addIngre").val("");
+            $("#hidden").append("<input type=\"hidden\" name=\"ingredients\" value=\""+labelValue+"\" />")
         }
     });
 // the basics
