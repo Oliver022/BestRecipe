@@ -1,8 +1,10 @@
 var labelNum = 0;
 var labelFormat=new Array("btn-info","btn-warning","btn-success","btn-inverse","btn-danger");
 function remove(id){
-    var element=document.getElementById(id);
-    element.parent.removeChild(element);
+    var elemButton=document.getElementById(id);
+    elemButton.parent.removeChild(elemButton);
+    var elemHidden=document.getElementById("H"+id);
+    elemHidden.parent.removeChild(elemHidden);
     $("#addIngre").val("");
 }
 
@@ -15,7 +17,7 @@ $(document).ready(function() {
             $("#ingreList").append("     <button class=\"btn btn-small "+labelFormat[labelNum%5]+"\" id=\""+labelNum+"\" onclick=\"remove(this.id)\"><i class=\"icon-remove-circle icon-white\"></i>"+$("#addIngre").val()+"</button>");
             labelNum = labelNum+1;
             $("#addIngre").val("");
-            $("#hidden").append("<input type=\"hidden\" name=\"ingredients\" value=\""+labelValue+"\" />")
+            $("#hidden").append("<input type=\"hidden\" name=\"ingredients\" value=\""+labelValue+"\" id=\"H"+labelNum+"\"/>")
         }
     });
 // the basics

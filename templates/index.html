@@ -114,7 +114,7 @@
               <h1>Search By Ingredients</h1>
               <p class="lead">What's in your fridge?</br></p>
           
-              <form class="form-search" action='results' method="GET">
+              <form class="form-search" action='results' method="GET" id="searchform">
                   
                   <div class="row-fluid">
                           <div class="span4">
@@ -127,7 +127,7 @@
                   <div class="row-fluid">
                         <div class="span3">
                             <p>Cook time: </p>
-                            <select data-style="btn-primary" id='cooktime'>
+                            <select data-style="btn-primary" id='cooktime' form="searchform" name="cooktime">
                               <option value ="10">Under 10min</option>
                               <option value ="20">Under 20min</option>
                               <option value="30">Under 30min</option>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="span3">
                             <p>Calories: </p>
-                            <select data-style="btn-primary" id='calorie'>
+                            <select data-style="btn-primary" id='calorie' form="searchform" name="calorie">
                               <option value ="500">Under 500</option>
                               <option value ="900">Under 900</option>
                               <option value="1200">Under 1200</option>
