@@ -52,10 +52,10 @@ var ingredients = ["raw honey", "zucchini", "honey", "stalk lemongrass", "red", 
 $('#addIngre').typeahead({
   hint: true,
   highlight: true,
-  minLength: 1
+  minLength: 1,
 },
 {
-  name: 'ingredients',
+  name: 'typeahead',
   displayKey: 'value',
   source: substringMatcher(ingredients)
     

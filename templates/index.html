@@ -2,6 +2,43 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+<style type="text/css">
+
+footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
+    
+.twitter-typeahead {
+  
+}
+
+.tt-dropdown-menu {
+  min-width: 160px;
+  margin-top: 2px;
+  padding: 5px 0;
+  background-color: #000;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+}
+
+.tt-suggestion {
+  display: block;
+  padding: 3px 20px;
+    
+}
+
+
+}
+    </style>
     <meta charset="utf-8">
     <title>Best Recipe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,7 +116,7 @@
                 <li><a href="#contact">Contact</a></li>
                 <!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="#">Action</a></li>
                     <li><a href="#">Another action</a></li>
@@ -118,7 +155,7 @@
                   
                   <div class="row-fluid">
                           <div class="span4">
-                        <input type="text" id= "addIngre" class="input-xlarge search-query" placeholder="Ingredients">
+                        <input type="text" id= "addIngre" class="typeahead input-xlarge search-query" placeholder="Ingredients">
                         <button type ="button" id="addBtn" class="btn btn-primary">Add</button>                                
                         </div>
                         <div class="span7"><div id="ingreList"></div></div>

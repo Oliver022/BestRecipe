@@ -7,7 +7,7 @@
       color: #5a5a5a;
     }
 
-
+    footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
 
     /* CUSTOMIZE THE NAVBAR
     -------------------------------------------------- */
@@ -128,7 +128,7 @@
     ------------------------- */
 
     .featurette-divider {
-      margin: 80px 0; /* Space out the Bootstrap <hr> more */
+      margin: 80px 0 30px; /* Space out the Bootstrap <hr> more */
     }
     .featurette {
       padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */

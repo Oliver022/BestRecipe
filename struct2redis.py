@@ -2,13 +2,12 @@ import redis
 from bestrecipe.models import Recipe
 r = redis.StrictRedis(host='localhost', port=6379, db=0)
 for i in Recipe.objects.all():
-    ingres=i.structuredInstructions
+    ingres=i.structIngredients
     for ingName,trival in ingres.items():
-        
         r.lpush(ingName,i.id)
 
 for i in Recipe.objects.all():
-    ingres=i.structuredInstructions
+    ingres=i.structIngredients
     for ingName,trival in ingres.items():
         if not r.exists(ingName):
             newSet = set()

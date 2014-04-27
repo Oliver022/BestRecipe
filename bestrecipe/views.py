@@ -24,7 +24,23 @@ def results(request):
     return render_to_response('results.html',{'results':results})
 
 def recipe(request):
-    return render_to_response('recipe.html',content)
+    index = request.GET.get('index', '')
+    recipe = Recipe.objects.get(id=index)
+    cooktime=recipe.cooktime
+    if cooktime > 59:
+        recipe.cooktime /= 60
+        timeUnit='hrs'
+    elif cooktime > 3599:
+        recipe.cooktime /= 3600
+        timeUnit='days'
+    else:
+        timeUnit='mins'
+
+    pdv={"sodium":2400,"total_fat":65,"saturated_fat":20,"cholesterol":300,"total_carbohydrate":300,"dietary_fiber":25,"sugars":1,"protein":1,"calories":1,"calories_from_fat":1}
+    recipe.nutrition={item:int(recipe.nutrition[item]) for item in recipe.nutrition}
+    percent ={item:int(float(recipe.nutrition[item])/float(pdv[item])*100) for item in recipe.nutrition}
+
+    return render_to_response('recipe.html',{'recipe':recipe,'timeunit':timeUnit,'percent':percent})
 
 def test(request):
     r = redis.StrictRedis(host='localhost', port=6379, db=0)

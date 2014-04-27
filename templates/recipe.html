@@ -12,46 +12,10 @@
     <link href="/static/css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="/static/css/index.css" rel="stylesheet">
+      <link href="/static/css/nutrition.css" rel="stylesheet">
     <!-- Fav and touch icons -->
     <link rel="Glyphicons icon" href="/static/img/glyphicons-halflings-white.png">
-    <script type="text/javascript">
-    function getRecipeJson() {
-            var apiKey = "dvxwZEG018xEus4GjkQn8lvCRNd3EO2b";
-            var titleKeyword = document.getElementById("input2").value;
-            var url = "http://api.bigoven.com/recipes?pg=1&rpp=25&title_kw="
-                      + titleKeyword 
-                      + "&api_key="+apiKey;
 
-             $.ajax({
-                type: "GET",
-                dataType: 'json',
-                cache: false,
-                url: url,
-                success: function (data) {
-                    //alert('success');
-                    console.log(data);
-                    generateResults(data);
-                }
-            //$("#theForm").ajaxForm({url: 'server.php', type: 'post'})     
-            });
-    }
-    function generateResults(data) {
-        var total = data.ResultCount;
-        var cur =1;
-        $("#resultsInfo").html("<div id=\"resultsInfo\" class=\"hero-unit\">Showing "+"1-4"+" of "+total+" results</div>");
-        var text="";
-        for(row = 0; row<4&&cur<total; row++){
-            for(col = 0;col< 4&&cur<total;col++,cur++){
-                text += "<li class=\"span3\"><div class=\"thumbnail\"><img class=\"img-circle\" src=\"" + data.Results[cur].ImageURL+"\"><h2>" + data.Results[cur].Title+ "</h2><p>"+data.Results[cur].Cuisine+"</p><p><a class=\"btn\" href=\""+data.Results[cur].WebURL+"\">View details &raquo;</a></p></div></li>";
-            }
-            //text += "<hr class=\"featurette-divider\">";
-        }
-        $("#result1").html(text);
-
-        text = "<div class=\"hero-unit pagination pagination-centered\"><ul><li><a href=\"#\">&larr; Prev</a></li><li class=\"disabled\"><a href=\"#\">1</a></li><li><a href=\"#\">2</a></li><li><a href=\"#\">3</a></li><li><a href=\"#\">4</a></li><li><a href=\"#\">5</a></li><li><a href=\"#\">Next &rarr;</a></li></ul><\div>";
-        $("#pagination").html(text);
-    }
-    </script>
   </head>
 
   <body>
@@ -74,7 +38,7 @@
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <div class="nav-collapse collapse">
               <ul class="nav">
-                <li class="active"><a href="index">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
@@ -102,21 +66,244 @@
       <!-- START THE FEATURETTES -->
 
       <hr class="featurette-divider">
-
-      <div class="featurette">
-        <img class="featurette-image pull-right" src="{{img}}">
-        <h2 class="featurette-heading">{{title}} <span class="muted">It'll blow your mind.</span></h2>
-        <p class="lead">{{summary}}</p>
+      <div class="row">
+      <div class="span1"></div>
+      <div class="span11">
+          <h2 class="featurette-heading">{{recipe.title}}</h2>
+      <div class="row">
+      <div class="span6">
+      <h4 class="muted"> Approximately ready in {{recipe.cooktime}}&nbsp;{{timeunit}}</h4>
+      <img src="{{recipe.img}}" width="500px" height="500px">
       </div>
-
-      <!-- FOOTER -->
+      <div class="span5">
+     <div class="tabbable"> <!-- Only required for left/right tabs -->
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#Ingredients" data-toggle="tab">Ingredients</a></li>
+            <li><a href="#Nutrition" data-toggle="tab">Nutrition</a></li>
+            <li><a href="#Instrution" data-toggle="tab">Instruction</a></li>
+            <li><a href="#Description" data-toggle="tab">Description</a></li>
+        </ul>
+    <div class="tab-content">
+    <div class="tab-pane active" id="Ingredients">
+        <h3 class="featurette-heading">Ingredients</h3>
+        {% for line in recipe.ingredients %}
+            <p>{{line}}</p>
+        {% endfor %}
+    </div>
+    <div class="tab-pane" id="Nutrition">
+     <section class="performance-facts">
+  <header class="performance-facts__header">
+    <h1 class="performance-facts__title">Nutrition Facts</h1>
+  </header>
+  <table class="performance-facts__table">
+    <tbody>
+      <tr>
+        <th colspan="2">
+          <b>Calories</b>
+            {{recipe.nutrition.calories}}
+        </th>
+        <td>
+          Calories from Fat {{recipe.nutrition.calories_from_fat}} mg
+        </td>
+      </tr>
+      <tr class="thick-row">
+        <td colspan="3" class="small-info">
+          <b>% Daily Value*</b>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <b>Total Fat</b>
+            {{recipe.nutrition.total_fat}}g
+        </th>
+        <td>
+          <b>{{percent.total_fat}}%</b>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell">
+        </td>
+        <th>
+          Saturated Fat
+          {{recipe.nutrition.saturated_fat}}g
+        </th>
+        <td>
+          <b>{{percent.saturated_fat}}%</b>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <b>Cholesterol</b>
+          {{recipe.nutrition.cholesterol}}mg
+        </th>
+        <td>
+          <b>{{percent.cholesterol}}%</b>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <b>Sodium</b>
+          {{recipe.nutrition.sodium}}mg
+        </th>
+        <td>
+          <b>{{percent.sodium}}%</b>
+        </td>
+      </tr>
+      <tr>
+        <th colspan="2">
+          <b>Total Carbohydrate</b>
+          {{recipe.nutrition.total_carbohydrate}}g
+        </th>
+        <td>
+          <b>{{percent.total_carbohydrate}}%</b>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell">
+        </td>
+        <th>
+          Dietary Fiber
+            {{recipe.nutrition.dietary_fiber}}g
+        </th>
+        <td>
+          <b>{{percent.dietary_fiber}}%</b>
+        </td>
+      </tr>
+      <tr>
+        <td class="blank-cell">
+        </td>
+        <th>
+          Sugars
+          {{recipe.nutrition.sugars}}g
+        </th>
+        <td>
+        </td>
+      </tr>
+      <tr class="thick-end">
+        <th colspan="2">
+          <b>Protein</b>
+            {{recipe.nutrition.protein}}g
+        </th>
+        <td>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <table class="performance-facts__table--grid">
+    <tbody>
+      <tr>
+        <td colspan="2">
+          Vitamin A
+          10%
+        </td>
+        <td>
+          Vitamin C
+          0%
+        </td>
+      </tr>
+      <tr class="thin-end">
+        <td colspan="2">
+          Calcium
+          10%
+        </td>
+        <td>
+          Iron
+          6%
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <p class="small-info">* Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</p>
+  
+  <table class="performance-facts__table--small small-info">
+    <thead>
+      <tr>
+        <td colspan="2"></td>
+        <th>Calories:</th>
+        <th>2,000</th>
+        <th>2,500</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th colspan="2">Total Fat</th>
+        <td>Less than</td>
+        <td>65g</td>
+        <td>80g</td>
+      </tr>
+      <tr>
+        <td class="blank-cell"></td>
+        <th>Saturated Fat</th>
+        <td>Less than</td>
+        <td>20g</td>
+        <td>25g</td>
+      </tr>
+      <tr>
+        <th colspan="2">Cholesterol</th>
+        <td>Less than</td>
+        <td>300mg</td>
+        <td>300 mg</td>
+      </tr>
+      <tr>
+        <th colspan="2">Sodium</th>
+        <td>Less than</td>
+        <td>2,400mg</td>
+        <td>2,400mg</td>
+      </tr>
+      <tr>
+        <th colspan="3">Total Carbohydrate</th>
+        <td>300g</td>
+        <td>375g</td>
+      </tr>
+      <tr>
+        <td class="blank-cell"></td>
+        <th colspan="2">Dietary Fiber</th>
+        <td>25g</td>
+        <td>30g</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <p class="small-info">
+    Calories per gram:
+  </p>
+  <p class="small-info text-center">
+    Fat 9
+    &bull;
+    Carbohydrate 4
+    &bull;
+    Protein 4
+  </p>
+  
+</section>
+    </div>
+    <div class="tab-pane" id="Instruction">
+        {% for line in recipe.instruction %}
+            <p>{{line}}</p>
+        {% endfor %} 
+    </div>
+    <div class="tab-pane" id="Description">
+        {% for line in recipe.description %}
+            <p>{{line}}</p>
+        {% endfor %} 
+    </div>
+        
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+      
+      <!-- FOOTER 
       <footer>
         <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
       </footer>
 
-    </div><!-- /.container -->
-
-
+    </div><!-- /.container --> 
+    
 
     <!-- Le javascript
     ================================================== -->
