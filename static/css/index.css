@@ -2,13 +2,46 @@
     -------------------------------------------------- */
     /* Padding below the footer and lighter body text */
 
+.thumbcontainer {   
+    height:450px;
+    overflow: auto;
+}
+
     body {
       padding-bottom: 40px;
       color: #5a5a5a;
     }
 
     footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
+.twitter-typeahead {
+  
+}
 
+.tt-dropdown-menu {
+  min-width: 160px;
+  margin-top: 2px;
+  padding: 5px 0;
+  background-color: #000;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0,0,0,.2);
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  -webkit-border-radius: 6px;
+     -moz-border-radius: 6px;
+          border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+  -webkit-background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
+}
+
+.tt-suggestion {
+  display: block;
+  padding: 3px 20px;
+    
+}
     /* CUSTOMIZE THE NAVBAR
     -------------------------------------------------- */
 
@@ -127,8 +160,11 @@
     /* Featurettes
     ------------------------- */
 
-    .featurette-divider {
+    .featurette-divider1 {
       margin: 80px 0 30px; /* Space out the Bootstrap <hr> more */
+    }
+    .featurette-divider2 {
+      margin: 10px 0 ; /* Space out the Bootstrap <hr> more */
     }
     .featurette {
       padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */

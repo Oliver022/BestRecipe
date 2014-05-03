@@ -103,23 +103,20 @@
 
 
       <!-- SHOW RESULTS -->
-
-      <hr class="featurette-divider">
-      <div id="resultsInfo" class="hero-unit">Showing 1-4 of total results</div>
-      
-      <ul class="thumbnails">
+    {% load filters %}
+      <hr class="featurette-divider1">
+      <div id="resultsInfo" class="hero-unit">Showing 1-{{results|length}} of total results</div>
+      <div style="margin:0px 0px 0px 100px">
+      <ul class="thumbnails" >
       {% for result in results %}
-          <li class="span3"><div class="thumbnail"><img class="img-circle" src='{{ result.img }}'><h2>{{ result.title }}</h2><p>
-          {% for line in result.ingredients %}
-              {{line}}</br></p>
-          {% endfor %}
-          <form action="recipe" method="GET">
-          <input type="hidden" name="index" value="{{result.id}}" />
-          <button class="btn btn-primary" type="submit">View details &raquo;</button>
-          </form>
+          <li class="span3"><div class="thumbnail thumbcontainer"><a href="./recipe?index={{result.id}}"><img class="img-circle" src='{{ result.img }}'><h4>{{ result.title }}</h4></a><p>
+          {% for line in result.summary %}
+              {{line|ellipses:100}}</br>
+          {% endfor %}</p>
+          </div></li>
       {% endfor %}
       </ul>
-      
+      </div>
       <div class="hero-unit pagination pagination-centered"><ul><li><a href="#">&larr; Prev</a></li><li class="disabled"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li><a href="#">Next &rarr;</a></li></ul> 
       </div>
 

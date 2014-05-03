@@ -5533,7 +5533,7 @@ input[type="submit"].btn.btn-mini {
 }
 
 .thumbnails {
-  margin-left: -20px;
+  margin-left: 30px;
   list-style: none;
   *zoom: 1;
 }
@@ -6123,11 +6123,11 @@ a.badge:focus {
 }
 
 .hero-unit {
-  padding: 60px;
-  margin-bottom: 30px;
+  padding: 20px 0px 20px 100px;
   font-size: 18px;
   font-weight: 200;
   line-height: 30px;
+  margin:0px 0px 30px 0px;
   color: inherit;
   background-color: #eeeeee;
   -webkit-border-radius: 6px;

@@ -2,43 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<style type="text/css">
 
-footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
-    
-.twitter-typeahead {
-  
-}
-
-.tt-dropdown-menu {
-  min-width: 160px;
-  margin-top: 2px;
-  padding: 5px 0;
-  background-color: #000;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0,0,0,.2);
-  *border-right-width: 2px;
-  *border-bottom-width: 2px;
-  -webkit-border-radius: 6px;
-     -moz-border-radius: 6px;
-          border-radius: 6px;
-  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-          box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  -webkit-background-clip: padding-box;
-     -moz-background-clip: padding;
-          background-clip: padding-box;
-}
-
-.tt-suggestion {
-  display: block;
-  padding: 3px 20px;
-    
-}
-
-
-}
-    </style>
     <meta charset="utf-8">
     <title>Best Recipe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -51,44 +15,6 @@ footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
     <link href="/static/css/index.css" rel="stylesheet">
     <!-- Fav and touch icons -->
     <link rel="Glyphicons icon" href="/static/img/glyphicons-halflings-white.png">
-    <script type="text/javascript">
-    function getRecipeJson() {
-            var apiKey = "dvxwZEG018xEus4GjkQn8lvCRNd3EO2b";
-            var titleKeyword = document.getElementById("input2").value;
-            var url = "http://api.bigoven.com/recipes?pg=1&rpp=25&title_kw="
-                      + titleKeyword 
-                      + "&api_key="+apiKey;
-
-             $.ajax({
-                type: "GET",
-                dataType: 'json',
-                cache: false,
-                url: url,
-                success: function (data) {
-                    //alert('success');
-                    console.log(data);
-                    generateResults(data);
-                }
-            //$("#theForm").ajaxForm({url: 'server.php', type: 'post'})     
-            });
-    }
-    function generateResults(data) {
-        var total = data.ResultCount;
-        var cur =1;
-        $("#resultsInfo").html("<div id=\"resultsInfo\" class=\"hero-unit\">Showing "+"1-4"+" of "+total+" results</div>");
-        var text="";
-        for(row = 0; row<4&&cur<total; row++){
-            for(col = 0;col< 4&&cur<total;col++,cur++){
-                text += "<li class=\"span3\"><div class=\"thumbnail\"><img class=\"img-circle\" src=\"" + data.Results[cur].ImageURL+"\"><h2>" + data.Results[cur].Title+ "</h2><p>"+data.Results[cur].Cuisine+"</p><p><a class=\"btn\" href=\""+data.Results[cur].WebURL+"\">View details &raquo;</a></p></div></li>";
-            }
-            //text += "<hr class=\"featurette-divider\">";
-        }
-        $("#result1").html(text);
-
-        text = "<div class=\"hero-unit pagination pagination-centered\"><ul><li><a href=\"#\">&larr; Prev</a></li><li class=\"disabled\"><a href=\"#\">1</a></li><li><a href=\"#\">2</a></li><li><a href=\"#\">3</a></li><li><a href=\"#\">4</a></li><li><a href=\"#\">5</a></li><li><a href=\"#\">Next &rarr;</a></li></ul><\div>";
-        $("#pagination").html(text);
-    }
-    </script>
   </head>
 
   <body>
@@ -131,12 +57,10 @@ footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
             </div><!--/.nav-collapse -->
           </div><!-- /.navbar-inner -->
         </div><!-- /.navbar -->
-
       </div> <!-- /.container -->
     </div><!-- /.navbar-wrapper -->
 
-      
-      
+          
     <!-- Carousel
     ================================================== -->
 
@@ -149,7 +73,6 @@ footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
           <div class="container">
             <div class="carousel-caption">
               <h1>Search By Ingredients</h1>
-              <p class="lead">What's in your fridge?</br></p>
           
               <form class="form-search" action='results' method="GET" id="searchform">
                   
@@ -165,30 +88,21 @@ footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
                         <div class="span3">
                             <p>Cook time: </p>
                             <select data-style="btn-primary" id='cooktime' form="searchform" name="cooktime">
-                              <option value ="10">Under 10min</option>
-                              <option value ="20">Under 20min</option>
-                              <option value="30">Under 30min</option>
-                              <option value="60">Under 60min</option>
+                              <option value ="10000">N/A</option>
+                              <option value ="20">Under 30min</option>
+                              <option value="30">Under 1hr</option>
+                              <option value="60">Under 2min</option>
                             </select>
                         </div>
                         <div class="span3">
                             <p>Calories: </p>
                             <select data-style="btn-primary" id='calorie' form="searchform" name="calorie">
-                              <option value ="500">Under 500</option>
+                              <option value ="10000">N/A</option>
                               <option value ="900">Under 900</option>
-                              <option value="1200">Under 1200</option>
                               <option value="1500">Under 1500</option>
+                              <option value="2000">Under 2000</option>
                             </select>
                         </div>
-                        <div class="span3">
-                            <p>Cuisine: </p>
-                            <select data-style="btn-primary" id='cuisine'>
-                              <option value ="American">American</option>
-                              <option value ="Asian">Asian</option>
-                              <option value="Italian">Italian</option>
-                              <option value="Mexican">Mexican</option>
-                            </select>
-                         </div>
                   </div>
                   <div id="hidden"></div>
                   </br><button type="submit" class="btn btn-primary">Search</button>                
@@ -201,8 +115,8 @@ footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
           <img src="/static/img/slide-02.jpg" >
           <div class="container">
             <div class="carousel-caption">
-              <h1>Search By Recipe Name</h1>
-              <p class="lead">1 Million recipes aggregated from multiple sources</br></br></p>
+              <h1>Search </h1>
+              <p class="lead">Wen Luo</br>Ao Li</br></br></p>
               <form class="form-search" action='results'>
                     <input type="text" id="input2" class="input-xlarge search-query" placeholder="Recipe Name">
                     <button type="button" onclick="getRecipeJson()" class="btn btn-primary">Search</button>
@@ -218,37 +132,18 @@ footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
 
 
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-    <div id="resultsInfo"></div>
-    <div class="container marketing">
-
-      <!-- 4 columns of text below the carousel -->
-      <ul id="result1" class="thumbnails">
-        <!--<div  class="span3">
-          <img id="result1" class="img-circle" src="img/rounded-01.jpg" >
-          <h2>Quesadillas</h2>
-          <p>zest of one small lemon</br>a generous dollop of creme fraiche, sour cream or Greek </br>yogurt</br>fine grain sea salt</br>2 heaping tablespoons capers</br>small splash of olive oil</br>1 small egg</br>1 corn tortilla, room temperature</br>a bit of freshly shaved Parmesan</br>chopped fresh chives or marjoram</p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>-->
-        
-      </ul>
-      
-      <div id="pagination"></div>
-      </div>
-
 
       <!-- START THE FEATURETTES -->
 
-      <hr class="featurette-divider">
+      <hr class="featurette-divider2">
 
       <div class="featurette">
         <img class="featurette-image pull-right" src="/static/img/list-01.jpg">
-        <h2 class="featurette-heading">First featurette headling. <span class="muted">It'll blow your mind.</span></h2>
+        <h2 class="featurette-heading">Thousands of recipes aggregated from high quality recipe blogs <span class="muted"></span></h2>
         <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
       </div>
 
-      <hr class="featurette-divider">
+      <hr class="featurette-divider2">
 
       <div class="featurette">
         <img class="featurette-image pull-left" src="/static/img/list-02.jpg">
@@ -256,7 +151,7 @@ footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
         <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
       </div>
 
-      <hr class="featurette-divider">
+      <hr class="featurette-divider2">
 
       <div class="featurette">
         <img class="featurette-image pull-right" src="/static/img/list-04.jpg">
@@ -264,12 +159,12 @@ footer { position:fixed; left:0px; bottom:0px; height:30px; width:100%;}
         <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
       </div>
 
-      <hr class="featurette-divider">
+      <hr class="featurette-divider1">
 
       <!-- /END THE FEATURETTES -->
 
 
-      <!-- FOOTER -->
+      <!-- FOOTER
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
         <p>&copy; 2013 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>

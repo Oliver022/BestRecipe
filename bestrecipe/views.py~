@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext, Context
 from bestrecipe.models import Recipe
 import redis
+import re
 
 def index(request):
     return render_to_response('index.html')
@@ -38,23 +39,11 @@ def recipe(request):
 
     pdv={"sodium":2400,"total_fat":65,"saturated_fat":20,"cholesterol":300,"total_carbohydrate":300,"dietary_fiber":25,"sugars":1,"protein":1,"calories":1,"calories_from_fat":1}
     recipe.nutrition={item:int(recipe.nutrition[item]) for item in recipe.nutrition}
-    percent ={item:int(int(recipe.nutrition[item])/int(pdv[item])*100) for item in recipe.nutrition}
+    percent ={item:int(float(recipe.nutrition[item])/float(pdv[item])*100) for item in recipe.nutrition}
+    matches = re.search(r'\.(\w+\.com)',  recipe.URL)
+    domain = matches.group(1);
 
-    return render_to_response('recipe.html',{'recipe':recipe,'timeunit':timeUnit,'percent':percent})
+    return render_to_response('recipe.html',{'recipe':recipe,'timeunit':timeUnit,'percent':percent,'domain':domain})
 
-def test(request):
-    r = redis.StrictRedis(host='localhost', port=6379, db=0)
-    ingredients=['champagne','sparkling wine']
-    conj=set()
-    results=[]
-    for i in ingredients:
-        if conj==set():
-            conj = set(r.lrange(i,0,-1))
-        else:
-            conj=conj&set(r.lrange(i,0,-1))
-    for index in conj:
-        result = Recipe.objects.get(id=index)
-        results.append(result)
 
-    return render_to_response('test.html',{'results':results})
 

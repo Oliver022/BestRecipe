@@ -12,6 +12,5 @@ urlpatterns = patterns('',
     (r'^static/(?P<path>.*)$','django.views.static.serve',{'document_root':settings.STATIC_PATH}),
     url(r'^recipe$', 'bestrecipe.views.recipe'),
     url(r'^results$', 'bestrecipe.views.results'),
-    url(r'^test$', 'bestrecipe.views.test'),
     
 )

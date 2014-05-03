@@ -43,7 +43,7 @@
                 <li><a href="#contact">Contact</a></li>
                 <!-- Read about Bootstrap dropdowns at http://twbs.github.com/bootstrap/javascript.html#dropdowns -->
                 <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">My Recipes <b class="caret"></b></a>
                   <ul class="dropdown-menu">
                     <li><a href="#">Action</a></li>
                     <li><a href="#">Another action</a></li>
@@ -65,14 +65,14 @@
 
       <!-- START THE FEATURETTES -->
 
-      <hr class="featurette-divider">
+      <hr class="featurette-divider1">
       <div class="row">
       <div class="span1"></div>
       <div class="span11">
           <h2 class="featurette-heading">{{recipe.title}}</h2>
       <div class="row">
       <div class="span6">
-      <h4 class="muted"> Approximately ready in {{recipe.cooktime}}&nbsp;{{timeunit}}</h4>
+      <h4 class="muted"> Approximately ready in {{recipe.cooktime}}&nbsp;{{timeunit}}&nbsp;<a href="{{recipe.URL}}">(Blog from {{domain}})</a></h4>
       <img src="{{recipe.img}}" width="500px" height="500px">
       </div>
       <div class="span5">
@@ -80,8 +80,8 @@
         <ul class="nav nav-tabs">
             <li class="active"><a href="#Ingredients" data-toggle="tab">Ingredients</a></li>
             <li><a href="#Nutrition" data-toggle="tab">Nutrition</a></li>
-            <li><a href="#Instrution" data-toggle="tab">Instruction</a></li>
-            <li><a href="#Description" data-toggle="tab">Description</a></li>
+            <li><a href="#Instruction" data-toggle="tab">Instruction</a></li>
+            <li><a href="#Summary" data-toggle="tab">Summary</a></li>
         </ul>
     <div class="tab-content">
     <div class="tab-pane active" id="Ingredients">
@@ -191,28 +191,6 @@
   </table>
   
   <table class="performance-facts__table--grid">
-    <tbody>
-      <tr>
-        <td colspan="2">
-          Vitamin A
-          10%
-        </td>
-        <td>
-          Vitamin C
-          0%
-        </td>
-      </tr>
-      <tr class="thin-end">
-        <td colspan="2">
-          Calcium
-          10%
-        </td>
-        <td>
-          Iron
-          6%
-        </td>
-      </tr>
-    </tbody>
   </table>
   
   <p class="small-info">* Percent Daily Values are based on a 2,000 calorie diet. Your daily values may be higher or lower depending on your calorie needs:</p>
@@ -284,8 +262,8 @@
             <p>{{line}}</p>
         {% endfor %} 
     </div>
-    <div class="tab-pane" id="Description">
-        {% for line in recipe.description %}
+    <div class="tab-pane" id="Summary">
+        {% for line in recipe.summary %}
             <p>{{line}}</p>
         {% endfor %} 
     </div>
