@@ -2,7 +2,7 @@ from django.db import models
 from jsonfield import JSONField
 
 class Recipe(models.Model):
-    title = models.CharField(max_length=80)
+    title = models.CharField(max_length=300)
     summary = JSONField()
     cooktime = models.IntegerField()
     nutrition = JSONField()

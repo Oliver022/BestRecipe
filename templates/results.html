@@ -54,6 +54,25 @@
         text = "<div class=\"hero-unit pagination pagination-centered\"><ul><li><a href=\"#\">&larr; Prev</a></li><li class=\"disabled\"><a href=\"#\">1</a></li><li><a href=\"#\">2</a></li><li><a href=\"#\">3</a></li><li><a href=\"#\">4</a></li><li><a href=\"#\">5</a></li><li><a href=\"#\">Next &rarr;</a></li></ul><\div>";
         $("#pagination").html(text);
     }
+        
+function addOrUpdateUrlParam(name, value)
+{
+  var href = window.location.href;
+  var regex = new RegExp("[&\\?]" + name + "=");
+  if(regex.test(href))
+  {
+    regex = new RegExp("([&\\?])" + name + "=\\d+");
+    window.location.href = href.replace(regex, "$1" + name + "=" + value);
+  }
+  else
+  {
+    if(href.indexOf("?") > -1)
+      window.location.href = href + "&" + name + "=" + value;
+    else
+      window.location.href = href + "?" + name + "=" + value;
+  }
+}
+        
     </script>
   </head>
 
@@ -105,11 +124,11 @@
       <!-- SHOW RESULTS -->
     {% load filters %}
       <hr class="featurette-divider1">
-      <div id="resultsInfo" class="hero-unit">Showing 1-{{results|length}} of total results</div>
+      <div id="resultsInfo" class="hero-unit">Page {{ results.number }} of {{ results.paginator.num_pages }}</div>
       <div style="margin:0px 0px 0px 100px">
-      <ul class="thumbnails" >
+      <ul class="thumbnails" id="showResults">
       {% for result in results %}
-          <li class="span3"><div class="thumbnail thumbcontainer"><a href="./recipe?index={{result.id}}"><img class="img-circle" src='{{ result.img }}'><h4>{{ result.title }}</h4></a><p>
+          <li class="span4"><div class="thumbnail thumbcontainer"><a href="./recipe?index={{result.id}}"><center><img class="img-circle" src='{{ result.img }}'/></center><h4>{{ result.title }}</h4></a><p>
           {% for line in result.summary %}
               {{line|ellipses:100}}</br>
           {% endfor %}</p>
@@ -117,7 +136,20 @@
       {% endfor %}
       </ul>
       </div>
-      <div class="hero-unit pagination pagination-centered"><ul><li><a href="#">&larr; Prev</a></li><li class="disabled"><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#">3</a></li><li><a href="#">4</a></li><li><a href="#">5</a></li><li><a href="#">Next &rarr;</a></li></ul> 
+      <div class="hero-unit pagination pagination-centered">
+          <ul><li>
+                {% if results.has_previous %}
+                    <a href="javascript:addOrUpdateUrlParam('page',{{ results.previous_page_number }});">&larr; Prev</a>
+                {% else %}
+                    <a href="#">&larr; Prev</a>
+                {% endif %}</li>
+              <li>        
+                {% if results.has_next %}
+                    <a href="javascript:addOrUpdateUrlParam('page',{{ results.next_page_number }});">Next &rarr;</a>
+                {% else %}
+                    <a href="#">Next &rarr;</a>
+                {% endif %}
+            </li></ul> 
       </div>
 
 
