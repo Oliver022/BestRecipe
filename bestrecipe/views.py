@@ -52,9 +52,9 @@ def recipe(request):
     recipe.nutrition={item:int(recipe.nutrition[item]) for item in recipe.nutrition}
     percent ={item:int(float(recipe.nutrition[item])/float(pdv[item])*100) for item in recipe.nutrition}
     #matches = re.search(r'\.(\w+\.com)',  recipe.URL)
-    temp = re.findall("http://www\.|http://(.*\.\w+)/|$",recipe.URL,re.I)
+    temp = re.findall("http://w*\.*([^/]*\.\w+)(/|$)",recipe.URL,re.I)
     if temp:
-        domain=temp[0]
+        domain=temp[0][0]
     else:
         domain="None"
     #domain = matches.group(1);

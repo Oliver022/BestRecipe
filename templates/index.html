@@ -87,17 +87,19 @@
                         <div class="span3">
                             <p>Cook time: </p>
                             <select data-style="btn-primary" id='cooktime' form="searchform" name="cooktime">
-                              <option value ="10000">N/A</option>
+                              <option value ="0"></option>
                               <option value ="20">Under 30min</option>
                               <option value="30">Under 1hr</option>
-                              <option value="60">Under 2min</option>
+                              <option value="60">Under 2hr</option>
+                              <option value="3600">Under 1day</option>
                             </select>
                         </div>
                         <div class="span3">
                             <p>Calories: </p>
                             <select data-style="btn-primary" id='calorie' form="searchform" name="calorie">
-                              <option value ="10000">N/A</option>
-                              <option value ="900">Under 900</option>
+                              <option value ="0"></option>
+                               <option value ="500">Under 500</option>
+                              <option value ="1000">Under 1000</option>
                               <option value="1500">Under 1500</option>
                               <option value="2000">Under 2000</option>
                             </select>
@@ -111,19 +113,7 @@
           </div>
         </div>
     
-        <div class="item">
-          <img src="/static/img/slide-02.jpg" >
-          <div class="container">
-            <div class="carousel-caption">
-              <h1>Search </h1>
-              <p class="lead">Wen Luo</br>Ao Li</br></br></p>
-              <form class="form-search" action='results'>
-                    <input type="text" id="input2" class="input-xlarge search-query" placeholder="Recipe Name">
-                    <button type="button" onclick="getRecipeJson()" class="btn btn-primary">Search</button>
-              </form>
-            </div>
-          </div>
-        </div>
+
     
       </div>
       <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
@@ -139,25 +129,11 @@
 
       <div class="featurette">
         <img class="featurette-image pull-right" src="/static/img/list-01.jpg">
-        <h2 class="featurette-heading">Thousands of recipes aggregated from high quality recipe blogs <span class="muted"></span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        <h2 class="featurette-heading">Thousands of recipes aggregated from high quality food blogs <span class="muted"></span></h2>
+
       </div>
 
-      <hr class="featurette-divider2">
 
-      <div class="featurette">
-        <img class="featurette-image pull-left" src="/static/img/list-02.jpg">
-        <h2 class="featurette-heading">Oh yeah, it's that good. <span class="muted">See for yourself.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-      </div>
-
-      <hr class="featurette-divider2">
-
-      <div class="featurette">
-        <img class="featurette-image pull-right" src="/static/img/list-04.jpg">
-        <h2 class="featurette-heading">And lastly, this one. <span class="muted">Checkmate.</span></h2>
-        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-      </div>
 
       <hr class="featurette-divider1">
 
